@@ -1,4 +1,5 @@
 from transformers import pipeline
+from convert_to_json import convert_to_json
 
 def format_input(title, store, manufacturer):
     """
@@ -29,6 +30,9 @@ def predict(pipe, title, store, manufacturer):
 
     # Make prediction
     prediction = pipe(input_text, max_length=384, clean_up_tokenization_spaces=True)
+
+    # structured json data
+    print(convert_to_json(prediction[0]['generated_text']))
 
     return prediction[0]['generated_text']
 
